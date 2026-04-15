@@ -1,0 +1,3 @@
+/home/sevecl/Desktop/C/Hailo/Test/build/CMakeFiles/Test.dir
+/home/sevecl/Desktop/C/Hailo/Test/build/CMakeFiles/edit_cache.dir
+/home/sevecl/Desktop/C/Hailo/Test/build/CMakeFiles/rebuild_cache.dir
