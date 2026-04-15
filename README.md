@@ -50,22 +50,23 @@
 
     lspci | grep Hailo
 
+
       例如：
         0001:01:00.0 Co-processor: Hailo Technologies Ltd. Hailo-8 AI Processor (rev 01)
-
     注意：其实第一个指令足够，同时注意你的设备时8还是8L，这一点通过第二个指令无法区分
+
+    
          以我的为例“Device Architecture: HAILO8L”，这是8L设备，使用模型要注意
          
 硬件和系统配置差不多到这里，在cpp使用的的源代码在树莓派系统一般自带，也会有已经编译好的模型。比如，我的自带hef格式的模型在“/usr/share/hailo-models”。
 （Hailo NPU必须使用.hef格式的模型）
 （如果你是8L型号，选择h8l模型，若是8型号，选择h8模型）
 你可以使用指令查看模型数据：
-  /*
+
     hailortcli parse-hef your_model.hef
-  /*
+  
 
   例子：
-  /*
     hailortcli parse-hef yolov8s.hef
     
     Architecture HEF was compiled for: HAILO8L
@@ -83,7 +84,6 @@
                     Max bboxes per class: 100
                     Image height: 640
                     Image width: 640
-  /*
 
   Architecture HEF was compiled for：模型是为8还是8L编译的
   INPUT：输入数据格式
