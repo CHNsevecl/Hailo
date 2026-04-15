@@ -53,9 +53,9 @@
 
       例如：
         0001:01:00.0 Co-processor: Hailo Technologies Ltd. Hailo-8 AI Processor (rev 01)
-    注意：其实第一个指令足够，同时注意你的设备时8还是8L，这一点通过第二个指令无法区分
 
-    
+        
+    注意：其实第一个指令足够，同时注意你的设备时8还是8L，这一点通过第二个指令无法区分
          以我的为例“Device Architecture: HAILO8L”，这是8L设备，使用模型要注意
          
 硬件和系统配置差不多到这里，在cpp使用的的源代码在树莓派系统一般自带，也会有已经编译好的模型。比如，我的自带hef格式的模型在“/usr/share/hailo-models”。
