@@ -37,6 +37,7 @@
 步骤四：验证安装
   1、检查NPU状态：运行以下命令，它会识别并显示Hailo芯片的信息。
   /*
+  
     hailortcli fw-control identify
   /*
     
