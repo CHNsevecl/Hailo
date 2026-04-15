@@ -39,7 +39,10 @@
   /*
     hailortcli fw-control identify
   /*
-      例如： Executing on device: 0001:01:00.0
+    
+    例如：
+  /*
+       Executing on device: 0001:01:00.0
             Identifying board
             Control Protocol Version: 2
             Firmware Version: 4.23.0 (release,app,extended context switch buffer)
@@ -49,6 +52,7 @@
             Serial Number: HLDDLBB243502526
             Part Number: HM21LB1C2LAE
             Product Name: HAILO-8L AI ACC M.2 B+M KEY MODULE EXT TMP
+    /*
       同时，可能会在终端当前的位置创建一个hailo.log文件，不用在意，是保存返回得到的信息的
   2、检查PCIE硬件是否连接：
   /*
