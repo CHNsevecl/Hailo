@@ -85,11 +85,11 @@
                     Image height: 640
                     Image width: 640
 
-  Architecture HEF was compiled for：模型是为8还是8L编译的
-  INPUT：输入数据格式
-  OUTPUT：输出格式
-  Score threshold: 置信度阈值
-  Classes：类别数
+  Architecture HEF was compiled for：模型是为8还是8L编译的\n
+  INPUT：输入数据格式\n
+  OUTPUT：输出格式\n
+  Score threshold: 置信度阈值\n
+  Classes：类别数\n
 
   /*
     注意：大部分模型都是640*640的输入，但大部分摄像头是640*480，不要直接拉伸传入，会失真。正确方式是：将摄像头画面放到640*640的黑色画布
