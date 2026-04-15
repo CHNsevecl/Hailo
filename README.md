@@ -11,38 +11,29 @@
 
 步骤一：更新系统与固件
   1、更新软件包列表和所有软件：
-  /*
+
+  
     sudo apt update && sudo apt full-upgrade -y
-  /*
   2、重启
 
 步骤二：启用PCIe Gen 3.0模式
   1、在终端中运行配置工具：
-  /*
-    sudo raspi-config
-  /*
   
+    sudo raspi-config
   2、依次选择：Advanced Options > PCIe Speed。
   3、系统会询问是否启用PCIe Gen 3.0模式，选择 Yes。
   4、选择 Finish 退出配置工具。当系统询问是否重启时，选择 Yes。
-
 步骤三：安装Hailo软件包
   1、在终端中执行以下命令来安装所有必需的驱动、固件和库：
-  /*
+ 
     sudo apt install hailo-all
-  /*
-  
   2、安装完成后，再次重启系统
-
 步骤四：验证安装
   1、检查NPU状态：运行以下命令，它会识别并显示Hailo芯片的信息。
-  /*
   
     hailortcli fw-control identify
-  /*
-    
     例如：
-  /*
+ 
        Executing on device: 0001:01:00.0
             Identifying board
             Control Protocol Version: 2
@@ -53,21 +44,18 @@
             Serial Number: HLDDLBB243502526
             Part Number: HM21LB1C2LAE
             Product Name: HAILO-8L AI ACC M.2 B+M KEY MODULE EXT TMP
-    /*
+
       同时，可能会在终端当前的位置创建一个hailo.log文件，不用在意，是保存返回得到的信息的
   2、检查PCIE硬件是否连接：
-  /*
+
     lspci | grep Hailo
-  /*
+
       例如：
         0001:01:00.0 Co-processor: Hailo Technologies Ltd. Hailo-8 AI Processor (rev 01)
 
-  /*
     注意：其实第一个指令足够，同时注意你的设备时8还是8L，这一点通过第二个指令无法区分
          以我的为例“Device Architecture: HAILO8L”，这是8L设备，使用模型要注意
-  /*
-
-
+         
 硬件和系统配置差不多到这里，在cpp使用的的源代码在树莓派系统一般自带，也会有已经编译好的模型。比如，我的自带hef格式的模型在“/usr/share/hailo-models”。
 （Hailo NPU必须使用.hef格式的模型）
 （如果你是8L型号，选择h8l模型，若是8型号，选择h8模型）
