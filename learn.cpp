@@ -2,109 +2,24 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-
-using namespace hailort;
+#include "Myhailo.hpp"
 
 int main() {
     setenv("DISPLAY", ":0", 1);
-	const std::string hef_path = "yolov8s.hef";
+	const std::string hef_path = "yolov8s_for_BLasear_V1_1.hef";
 	constexpr size_t expected_input_size = 640 * 640 * 3; // UINT8 NHWC
-
-	std::cout << "[Step 1] 初始化 Hailo 设备并读取 HEF..." << std::endl;
-    //=============创建硬件设备对象===============
-	auto vdevice_exp = VDevice::create();
-	if (!vdevice_exp) {
-		std::cerr << "错误: 无法创建设备, status=" << vdevice_exp.status() << std::endl;
+	auto hailo_context_opt = Hailo_init(hef_path);
+	if (!hailo_context_opt) {
 		return -1;
 	}
-	auto vdevice = vdevice_exp.release();//若硬件没问题（上面的判断），就把封装的配置取出，这是一个安全API方式
-    //=========================================
-
-
-    //=============加载 HEF 模型文件===============
-	auto infer_model_exp = vdevice->create_infer_model(hef_path);
-	if (!infer_model_exp) {
-		std::cerr << "错误: 无法加载 HEF: " << hef_path << ", status=" << infer_model_exp.status() << std::endl;
-		return -1;
-	}
-	auto infer_model = infer_model_exp.release();//若模型没问题（上面的判断），就把封装的配置取出，这是一个安全API方式
-    //=========================================
-
-    //=============检查模型输入输出节点信息===============
-	auto input_names = infer_model->get_input_names();
-	auto output_names = infer_model->get_output_names();
-    std::cout << "input_names size = " << input_names.size() << std::endl;
-    for (const auto &n : input_names) std::cout << "  " << n << std::endl;
-    std::cout << "output_names size = " << output_names.size() << std::endl;
-    for (const auto &n : output_names) std::cout << "  " << n << std::endl;
-
-	if (input_names.empty() || output_names.empty()) {
-		std::cerr << "错误: 模型输入或输出为空" << std::endl;
-		return -1;
-	}
-    //=========================================
-
-    //=============限制只有一个输出===============
-    if (output_names.size() != 1) {
-        std::cerr << "错误: 当前模型有 " << output_names.size() << " 个输出节点，"
-                  << "此程序仅支持单输出模型，请检查模型文件" << std::endl;
-        return -1;
-    }
-    std::cout << "模型输出节点数量检查通过 (仅支持单输出): " << output_names.size() << std::endl;
-    //=========================================
-
-    for (const auto &name : input_names) {
-		const size_t input_size = infer_model->input(name)->get_frame_size();
-		std::cout << "  - " << name << ": " << input_size << " bytes" << std::endl;
-	}
+	auto &hailo_context = *hailo_context_opt;
+	auto &input_names = hailo_context.input_names;
+	auto &output_names = hailo_context.output_names;
+	auto &configured_infer_model = hailo_context.configured_infer_model;
+	auto &bindings = hailo_context.bindings;
+	auto &input_buffers = hailo_context.input_buffer;
+	auto &output_buffers = hailo_context.output_buffer;
 	std::cout << "期望字节数(640x640x3): " << expected_input_size << std::endl;
-
-	std::cout << "输出节点数量: " << output_names.size() << std::endl;
-	for (const auto &name : output_names) {
-		const size_t output_size = infer_model->output(name)->get_frame_size();
-		std::cout << "  - " << name << ": " << output_size << " bytes" << std::endl;
-	}
-
-	//=============第 2 步: 配置模型并绑定输入输出内存===============
-
-    //================获得配置单==================
-	auto configured_infer_model_exp = infer_model->configure();
-	if (!configured_infer_model_exp) {
-		std::cerr << "错误: 无法配置模型, status=" << configured_infer_model_exp.status() << std::endl;
-		return -1;
-	}
-	auto configured_infer_model = configured_infer_model_exp.release();
-    //=========================================
-
-    //================创建绑定对象，用于绑定输入输出缓冲(buffers)==================
-	auto bindings_exp = configured_infer_model.create_bindings();
-	if (!bindings_exp) {
-		std::cerr << "错误: 无法创建 bindings, status=" << bindings_exp.status() << std::endl;
-		return -1;
-	}
-	auto bindings = bindings_exp.release();
-    //=========================================
-
-    //=================输入绑定==================
-	std::vector<std::vector<uint8_t>> input_buffers;//存放输入字节的容器，生命周期要长于推理调用
-    input_buffers.reserve(input_names.size());
-    for(const auto &name : input_names){
-        const size_t input_size = infer_model->input(name)->get_frame_size();
-        input_buffers.emplace_back(input_size);
-        bindings.input(name)->set_buffer(MemoryView(input_buffers.back().data(), input_buffers.back().size()));
-    }
-	
-    //==========================================
-
-    //=================输出绑定==================
-	std::vector<std::vector<uint8_t>> output_buffers;
-	output_buffers.reserve(output_names.size());
-	for (const auto &name : output_names) {
-		const size_t output_size = infer_model->output(name)->get_frame_size();
-		output_buffers.emplace_back(output_size);
-		bindings.output(name)->set_buffer(MemoryView(output_buffers.back().data(), output_buffers.back().size()));
-	}
-    //==========================================
 
 	//=============第 3 步: 启动视频流并持续推理===============
     std::string pipeline = 

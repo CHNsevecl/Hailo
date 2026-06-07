@@ -3,6 +3,7 @@ learn: \
   /usr/lib/gcc/aarch64-linux-gnu/14/../../../aarch64-linux-gnu/crti.o \
   /usr/lib/gcc/aarch64-linux-gnu/14/crtbeginS.o \
   CMakeFiles/learn.dir/learn.cpp.o \
+  CMakeFiles/learn.dir/Myhailo.cpp.o \
   /usr/lib/aarch64-linux-gnu/libopencv_stitching.so.4.10.0 \
   /usr/lib/aarch64-linux-gnu/libopencv_alphamat.so.4.10.0 \
   /usr/lib/aarch64-linux-gnu/libopencv_aruco.so.4.10.0 \
@@ -381,6 +382,8 @@ learn: \
 /usr/lib/gcc/aarch64-linux-gnu/14/crtbeginS.o:
 
 CMakeFiles/learn.dir/learn.cpp.o:
+
+CMakeFiles/learn.dir/Myhailo.cpp.o:
 
 /usr/lib/aarch64-linux-gnu/libopencv_stitching.so.4.10.0:
 

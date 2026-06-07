@@ -11,7 +11,7 @@ find_package(OpenCV REQUIRED)
 include_directories(/usr/include)
 
 # 添加可执行文件
-add_executable(learn learn.cpp)
+add_executable(learn learn.cpp Myhailo.cpp)
 
 # 链接 OpenCV 和 HailoRT 核心动态库
 target_link_libraries(learn 

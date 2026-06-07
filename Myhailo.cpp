@@ -1,112 +1,87 @@
-#include <hailo/hailort.hpp>
-#include <iostream>
-#include <optional>
-#include <opencv2/opencv.hpp>
 #include "Myhailo.hpp"
 
-using namespace hailort;
+#include <iostream>
 
-struct HailoContext {
-    shared_ptr<VDevice> vdevice;
-    shared_ptr<InferModel> infer_model;
-    ConfiguredInferModel configured_infer_model;
-    ConfiguredInferModel::Bindings bindings;
-    vector<vector<uint8_t>> input_buffer;
-    vector<vector<uint8_t>> output_buffer;
+std::optional<HailoContext> Hailo_init(const std::string& hef_path) {
+	HailoContext context;
 
-};
+	std::cout << "[Step 1] 初始化 Hailo 设备并读取 HEF..." << std::endl;
 
-std::optional<HailoContext> Hialo_init(string &err){
-    setenv("DISPLAY", ":0", 1);
-    HailoContext context;
+	auto vdevice_exp = hailort::VDevice::create();
+	if (!vdevice_exp) {
+		std::cerr << "错误: 无法创建设备, status=" << vdevice_exp.status() << std::endl;
+		return std::nullopt;
+	}
+	context.vdevice = vdevice_exp.release();
 
-    //============创建硬件设备对象===============
-    auto vdevice_exp = VDevice::create(); //创建设备对象，返回一个封装了状态的结果类型,此时设备还被保护在封装中
-    if (!vdevice_exp) { //检查设备创建是否成功
-        std::cerr << "错误: 无法创建设备, status=" << vdevice_exp.status() << std::endl;
-        return std::nullopt;
-    }
-    auto vdevice = vdevice_exp.release(); //若硬件没问题（上面的判断），就把封装的配置取出，这是一个安全API方式
-    context.vdevice = std::move(vdevice);
+	auto infer_model_exp = context.vdevice->create_infer_model(hef_path);
+	if (!infer_model_exp) {
+		std::cerr << "错误: 无法加载 HEF: " << hef_path << ", status=" << infer_model_exp.status() << std::endl;
+		return std::nullopt;
+	}
+	context.infer_model = infer_model_exp.release();
 
-    //=========================================
+	context.input_names = context.infer_model->get_input_names();
+	context.output_names = context.infer_model->get_output_names();
 
-    //=============加载 HEF 模型文件=============== 
-    auto infer_model_exp = vdevice->create_infer_model(model_path); //加载模型文件，返回一个封装了状态的结果类型,此时模型还被保护在封装中
-    if (!infer_model_exp) { //检查模型加载是否成功
-        std::cerr << "错误: 无法加载 HEF: " << model_path <<endl;
-        return std::nullopt;
-    }
-    auto infer_model = infer_model_exp.release(); //若模型没问题（上面的判断），就把封装的配置取出，这是一个安全API方式
-    context.infer_model = std::move(infer_model);
-    //=========================================
+	std::cout << "input_names size = " << context.input_names.size() << std::endl;
+	for (const auto &n : context.input_names) std::cout << "  " << n << std::endl;
+	std::cout << "output_names size = " << context.output_names.size() << std::endl;
+	for (const auto &n : context.output_names) std::cout << "  " << n << std::endl;
 
-    //=============检查模型输入输出节点信息===============
-    auto input_names = context.infer_model->get_input_names();
-    auto output_names = context.infer_model->get_output_names();
-    if (input_names.empty() || output_names.empty()) {
-        std::cerr << "错误: 模型输入或输出为空" << std::endl;
-        return std::nullopt;
-    }
+	if (context.input_names.empty() || context.output_names.empty()) {
+		std::cerr << "错误: 模型输入或输出为空" << std::endl;
+		return std::nullopt;
+	}
 
-    std::cout << "模型输入节点数量: " << input_names.size() << std::endl;
-    for (const auto &name : input_names){
-        const size_t input_size = context.infer_model->input(name)->get_frame_size();
-        std::cout << "  - " << name << ": " << input_size << " bytes" << std::endl;
-    }
+	if (context.output_names.size() != 1) {
+		std::cerr << "错误: 当前模型有 " << context.output_names.size() << " 个输出节点，"
+				  << "此程序仅支持单输出模型，请检查模型文件" << std::endl;
+		return std::nullopt;
+	}
+	std::cout << "模型输出节点数量检查通过 (仅支持单输出): " << context.output_names.size() << std::endl;
 
-    std::cout << "模型输出节点数量: " << output_names.size() << std::endl;
-    for (const auto &name : output_names){
-        const size_t output_size = context.infer_model->output(name)->get_frame_size();
-        std::cout << "  - " << name << ": " << output_size << " bytes" << std::endl;
-    }   
-    //=========================================
+	for (const auto &name : context.input_names) {
+		const size_t input_size = context.infer_model->input(name)->get_frame_size();
+		std::cout << "  - " << name << ": " << input_size << " bytes" << std::endl;
+	}
 
-    //=============配置模型并绑定输入输出内存===============
+	std::cout << "输出节点数量: " << context.output_names.size() << std::endl;
+	for (const auto &name : context.output_names) {
+		const size_t output_size = context.infer_model->output(name)->get_frame_size();
+		std::cout << "  - " << name << ": " << output_size << " bytes" << std::endl;
+	}
 
-    //================获得配置单==================
-    auto configured_infer_model_exp = context.infer_model->configure();
-    if (!configured_infer_model_exp) {
-        std::cerr << "错误: 无法配置模型, status=" << configured_infer_model_exp.status() << std::endl;
-        return std::nullopt;
-    }
-    auto configured_infer_model = configured_infer_model_exp.release();
-    context.configured_infer_model = std::move(configured_infer_model);
-    //=========================================
+	auto configured_infer_model_exp = context.infer_model->configure();
+	if (!configured_infer_model_exp) {
+		std::cerr << "错误: 无法配置模型, status=" << configured_infer_model_exp.status() << std::endl;
+		return std::nullopt;
+	}
+	context.configured_infer_model = configured_infer_model_exp.release();
 
-    //=======创建绑定对象，用于绑定输入输出内存========
-    auto bindings_exp = context.configured_infer_model.create_bindings();
-    if (!bindings_exp) {
-        std::cerr << "错误: 无法创建绑定对象, status=" << bindings_exp.status() << std::endl;
-        return std::nullopt;
-    }
-    auto bindings = bindings_exp.release(); 
-    context.bindings = std::move(bindings);
-    //=========================================
+	auto bindings_exp = context.configured_infer_model.create_bindings();
+	if (!bindings_exp) {
+		std::cerr << "错误: 无法创建 bindings, status=" << bindings_exp.status() << std::endl;
+		return std::nullopt;
+	}
+	context.bindings = bindings_exp.release();
 
-    //=======为输入输出节点分配内存并绑定========
-    std::vector<std::vector<uint8_t>> input_buffers;
-    std::vector<std::vector<uint8_t>> output_buffers;
-    input_buffers.reserve(input_names.size());
-    output_buffers.reserve(output_names.size());    
+	context.input_buffer.reserve(context.input_names.size());
+	for (const auto &name : context.input_names) {
+		const size_t input_size = context.infer_model->input(name)->get_frame_size();
+		context.input_buffer.emplace_back(input_size);
+		context.bindings.input(name)->set_buffer(hailort::MemoryView(context.input_buffer.back().data(), context.input_buffer.back().size()));
+	}
 
-    // 输入绑定
-    for (const auto &name : input_names){
-        const size_t input_size = infer_model->input(name)->get_frame_size();//获得每个输入节点的字节大小
-        input_buffers.emplace_back(input_size); //为每个输入节点分配内存
-        bindings.input(name)->set_buffer(MemoryView(input_buffers.back().data(), input_buffers.back().size())); //将分配的内存绑定到模型输入
-    }
+	context.output_buffer.reserve(context.output_names.size());
+	for (const auto &name : context.output_names) {
+		const size_t output_size = context.infer_model->output(name)->get_frame_size();
+		context.output_buffer.emplace_back(output_size);
+		context.bindings.output(name)->set_buffer(hailort::MemoryView(context.output_buffer.back().data(), context.output_buffer.back().size()));
+	}
 
-    // 输出绑定
-    for (const auto &name : output_names){
-        const size_t output_size = infer_model->output(name)->get_frame_size();//获得每个输出节点的字节大小
-        output_buffers.emplace_back(output_size); //为每个输出节点分配内存
-        bindings.output(name)->set_buffer(MemoryView(output_buffers.back().data(), output_buffers.back().size())); //将分配的内存绑定到模型输出
-    }
-    context.input_buffer = std::move(input_buffers);
-    context.output_buffer = std::move(output_buffers);
-    //=========================================
-    cout << "模型配置和内存绑定成功" << endl;
+	std::cout << "[Step 2 完成] 模型已配置，输入输出缓冲已绑定。" << std::endl;
+	std::cout << "[Step 1 完成] 设备与模型检查通过。" << std::endl;
 
-    return context;
+	return context;
 }

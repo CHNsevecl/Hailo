@@ -8,7 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/sevecl/Desktop/C/Hailo/hailo_exampel/learn.cpp" "CMakeFiles/learn.dir/learn.cpp.o" "gcc" "CMakeFiles/learn.dir/learn.cpp.o.d"
+  "/home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/Myhailo.cpp" "CMakeFiles/learn.dir/Myhailo.cpp.o" "gcc" "CMakeFiles/learn.dir/Myhailo.cpp.o.d"
+  "/home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/learn.cpp" "CMakeFiles/learn.dir/learn.cpp.o" "gcc" "CMakeFiles/learn.dir/learn.cpp.o.d"
   "" "learn" "gcc" "CMakeFiles/learn.dir/link.d"
   )
 

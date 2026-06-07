@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sevecl/Desktop/C/Hailo/hailo_exampel
+CMAKE_SOURCE_DIR = /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sevecl/Desktop/C/Hailo/hailo_exampel/build
+CMAKE_BINARY_DIR = /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/learn.dir/depend.make
@@ -73,27 +73,43 @@ CMakeFiles/learn.dir/codegen:
 .PHONY : CMakeFiles/learn.dir/codegen
 
 CMakeFiles/learn.dir/learn.cpp.o: CMakeFiles/learn.dir/flags.make
-CMakeFiles/learn.dir/learn.cpp.o: /home/sevecl/Desktop/C/Hailo/hailo_exampel/learn.cpp
+CMakeFiles/learn.dir/learn.cpp.o: /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/learn.cpp
 CMakeFiles/learn.dir/learn.cpp.o: CMakeFiles/learn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sevecl/Desktop/C/Hailo/hailo_exampel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/learn.dir/learn.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/learn.dir/learn.cpp.o -MF CMakeFiles/learn.dir/learn.cpp.o.d -o CMakeFiles/learn.dir/learn.cpp.o -c /home/sevecl/Desktop/C/Hailo/hailo_exampel/learn.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/learn.dir/learn.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/learn.dir/learn.cpp.o -MF CMakeFiles/learn.dir/learn.cpp.o.d -o CMakeFiles/learn.dir/learn.cpp.o -c /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/learn.cpp
 
 CMakeFiles/learn.dir/learn.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/learn.dir/learn.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sevecl/Desktop/C/Hailo/hailo_exampel/learn.cpp > CMakeFiles/learn.dir/learn.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/learn.cpp > CMakeFiles/learn.dir/learn.cpp.i
 
 CMakeFiles/learn.dir/learn.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/learn.dir/learn.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sevecl/Desktop/C/Hailo/hailo_exampel/learn.cpp -o CMakeFiles/learn.dir/learn.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/learn.cpp -o CMakeFiles/learn.dir/learn.cpp.s
+
+CMakeFiles/learn.dir/Myhailo.cpp.o: CMakeFiles/learn.dir/flags.make
+CMakeFiles/learn.dir/Myhailo.cpp.o: /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/Myhailo.cpp
+CMakeFiles/learn.dir/Myhailo.cpp.o: CMakeFiles/learn.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/learn.dir/Myhailo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/learn.dir/Myhailo.cpp.o -MF CMakeFiles/learn.dir/Myhailo.cpp.o.d -o CMakeFiles/learn.dir/Myhailo.cpp.o -c /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/Myhailo.cpp
+
+CMakeFiles/learn.dir/Myhailo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/learn.dir/Myhailo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/Myhailo.cpp > CMakeFiles/learn.dir/Myhailo.cpp.i
+
+CMakeFiles/learn.dir/Myhailo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/learn.dir/Myhailo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/Myhailo.cpp -o CMakeFiles/learn.dir/Myhailo.cpp.s
 
 # Object files for target learn
 learn_OBJECTS = \
-"CMakeFiles/learn.dir/learn.cpp.o"
+"CMakeFiles/learn.dir/learn.cpp.o" \
+"CMakeFiles/learn.dir/Myhailo.cpp.o"
 
 # External object files for target learn
 learn_EXTERNAL_OBJECTS =
 
 learn: CMakeFiles/learn.dir/learn.cpp.o
+learn: CMakeFiles/learn.dir/Myhailo.cpp.o
 learn: CMakeFiles/learn.dir/build.make
 learn: CMakeFiles/learn.dir/compiler_depend.ts
 learn: /usr/lib/aarch64-linux-gnu/libopencv_stitching.so.4.10.0
@@ -152,7 +168,7 @@ learn: /usr/lib/aarch64-linux-gnu/libopencv_photo.so.4.10.0
 learn: /usr/lib/aarch64-linux-gnu/libopencv_imgproc.so.4.10.0
 learn: /usr/lib/aarch64-linux-gnu/libopencv_core.so.4.10.0
 learn: CMakeFiles/learn.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/sevecl/Desktop/C/Hailo/hailo_exampel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable learn"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable learn"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/learn.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -164,6 +180,6 @@ CMakeFiles/learn.dir/clean:
 .PHONY : CMakeFiles/learn.dir/clean
 
 CMakeFiles/learn.dir/depend:
-	cd /home/sevecl/Desktop/C/Hailo/hailo_exampel/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sevecl/Desktop/C/Hailo/hailo_exampel /home/sevecl/Desktop/C/Hailo/hailo_exampel /home/sevecl/Desktop/C/Hailo/hailo_exampel/build /home/sevecl/Desktop/C/Hailo/hailo_exampel/build /home/sevecl/Desktop/C/Hailo/hailo_exampel/build/CMakeFiles/learn.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build/CMakeFiles/learn.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/learn.dir/depend
 

@@ -1,5 +1,5 @@
 CMakeFiles/learn.dir/learn.cpp.o: \
- /home/sevecl/Desktop/C/Hailo/hailo_exampel/learn.cpp \
+ /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/learn.cpp \
  /usr/include/stdc-predef.h /usr/include/hailo/hailort.hpp \
  /usr/include/hailo/hailort.h /usr/include/hailo/platform.h \
  /usr/include/unistd.h /usr/include/features.h \
@@ -412,4 +412,6 @@ CMakeFiles/learn.dir/learn.cpp.o: \
  /usr/include/opencv4/opencv2/stitching/detail/camera.hpp \
  /usr/include/opencv4/opencv2/video.hpp \
  /usr/include/opencv4/opencv2/video/tracking.hpp \
- /usr/include/opencv4/opencv2/video/background_segm.hpp
+ /usr/include/opencv4/opencv2/video/background_segm.hpp \
+ /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/Myhailo.hpp \
+ /usr/include/c++/14/optional

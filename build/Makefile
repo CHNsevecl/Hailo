@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sevecl/Desktop/C/Hailo/hailo_exampel
+CMAKE_SOURCE_DIR = /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sevecl/Desktop/C/Hailo/hailo_exampel/build
+CMAKE_BINARY_DIR = /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sevecl/Desktop/C/Hailo/hailo_exampel/build/CMakeFiles /home/sevecl/Desktop/C/Hailo/hailo_exampel/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build/CMakeFiles /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sevecl/Desktop/C/Hailo/hailo_exampel/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,6 +129,30 @@ learn/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn.dir/build.make CMakeFiles/learn.dir/build
 .PHONY : learn/fast
 
+Myhailo.o: Myhailo.cpp.o
+.PHONY : Myhailo.o
+
+# target to build an object file
+Myhailo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn.dir/build.make CMakeFiles/learn.dir/Myhailo.cpp.o
+.PHONY : Myhailo.cpp.o
+
+Myhailo.i: Myhailo.cpp.i
+.PHONY : Myhailo.i
+
+# target to preprocess a source file
+Myhailo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn.dir/build.make CMakeFiles/learn.dir/Myhailo.cpp.i
+.PHONY : Myhailo.cpp.i
+
+Myhailo.s: Myhailo.cpp.s
+.PHONY : Myhailo.s
+
+# target to generate assembly for a file
+Myhailo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn.dir/build.make CMakeFiles/learn.dir/Myhailo.cpp.s
+.PHONY : Myhailo.cpp.s
+
 learn.o: learn.cpp.o
 .PHONY : learn.o
 
@@ -162,6 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... learn"
+	@echo "... Myhailo.o"
+	@echo "... Myhailo.i"
+	@echo "... Myhailo.s"
 	@echo "... learn.o"
 	@echo "... learn.i"
 	@echo "... learn.s"
