@@ -8,13 +8,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 find_package(OpenCV REQUIRED)
 
 # 包含 HailoRT 头文件路径 (通常通过 apt 安装在系统目录下)
-include_directories(/usr/include)
+include_directories(/usr/include )
 
 # 添加可执行文件
-add_executable(learn learn.cpp Myhailo.cpp)
+add_executable(train train.cpp ./src/Myhailo.cpp)
 
 # 链接 OpenCV 和 HailoRT 核心动态库
-target_link_libraries(learn 
+target_link_libraries(train
     ${OpenCV_LIBS}
     hailort
 )
