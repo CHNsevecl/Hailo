@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++ -isystem /usr/include/opencv4 -g -std=gnu++17 -o CMakeFiles/train.dir/train.cpp.o -c /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/train.cpp",
+  "file": "/home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/train.cpp",
+  "output": "CMakeFiles/train.dir/train.cpp.o"
+},
+{
+  "directory": "/home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++ -isystem /usr/include/opencv4 -g -std=gnu++17 -o CMakeFiles/train.dir/src/Myhailo.cpp.o -c /home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/src/Myhailo.cpp",
+  "file": "/home/sevecl/Desktop/C/Hailo/hailo_Lasear_exampel/src/Myhailo.cpp",
+  "output": "CMakeFiles/train.dir/src/Myhailo.cpp.o"
+}
+]
