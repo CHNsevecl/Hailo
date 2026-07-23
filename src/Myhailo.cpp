@@ -118,7 +118,7 @@ std::optional<std::vector<Detection>> ParseDetections(HailoContext& hailo_contex
         }
         else{
             // std::cout << "类别 " << class_names[class_id] << " 检测到 " << class_count << " 个目标。" << " "<< "NMS_index: " << NMS_index << "class_count: " << class_count << std::endl;
-            for (int box_index = NMS_index; box_index < NMS_index + class_count; box_index++) {
+            for (int box_index = NMS_index; box_index < NMS_index + class_count*5; box_index++) {
                 const float ymin  = detections[box_index + 1];
                 const float xmin  = detections[box_index + 2];
                 const float ymax  = detections[box_index + 3];
