@@ -27,6 +27,7 @@ const std::vector<std::string> class_names = {
     "refrigerator", "book", "clock", "vase", "scissors", "teddy bear", "hair drier", 
     "toothbrush"
 };
+
 const std::string hef_path = "/usr/share/hailo-models/yolov8s_h8l.hef";
 constexpr size_t expected_input = 640*640*3;
 const int max_boxes_per_class = 100; // 每个类别最多100个框
